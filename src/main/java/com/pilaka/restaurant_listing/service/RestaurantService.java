@@ -2,20 +2,45 @@ package com.pilaka.restaurant_listing.service;
 
 import com.pilaka.restaurant_listing.dto.RestaurantDTO;
 import com.pilaka.restaurant_listing.entity.Restaurant;
+import com.pilaka.restaurant_listing.mapper.RestaurantMapper;
 import com.pilaka.restaurant_listing.repo.RestaurantRepo;
+import jakarta.persistence.EntityNotFoundException;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+
 import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
-public class RestaurantService {
+
+public class RestaurantService  {
 
     @Autowired
     RestaurantRepo restaurantRepo;
 
-    public List<Restaurant> findAllRestaurants(){
-       return restaurantRepo.findAll().stream().toList();
+
+    public List<RestaurantDTO> findAllRestaurants() {
+        List<Restaurant> restaurants = restaurantRepo.findAll();
+        List<RestaurantDTO> restaurantDTOList = restaurants.stream().map(restaurant -> RestaurantMapper.INSTANCE.mapRestaurantToRestaurantDTO(restaurant)).collect(Collectors.toList());
+        return restaurantDTOList;
+    }
+    @Transactional
+     public RestaurantDTO addRestaurantDTOInDB(RestaurantDTO restaurantDTO){
+        Restaurant savedRestaurant = restaurantRepo.save(RestaurantMapper.INSTANCE.mapRestaurantDTOToRestaurant(restaurantDTO));
+        return  RestaurantMapper.INSTANCE.mapRestaurantToRestaurantDTO(savedRestaurant);
+     }
+    public ResponseEntity<RestaurantDTO> fetchRestaurantById(Long id) {
+        Optional<Restaurant> restaurant = Optional.ofNullable(restaurantRepo.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException("Restaurant not found")));;
+        if(restaurant.isPresent()){
+            return new ResponseEntity<>(RestaurantMapper.INSTANCE.mapRestaurantToRestaurantDTO(restaurant.get()), HttpStatus.OK);
+        }
+        return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
     }
 
 }
