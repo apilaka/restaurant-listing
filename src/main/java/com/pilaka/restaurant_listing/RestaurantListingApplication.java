@@ -6,7 +6,7 @@ import org.springframework.context.annotation.ComponentScan;
 
 @SpringBootApplication
 //@EnableEurekaClient
-@ComponentScan("com.pilaka.restaurant_listing")
+@ComponentScan("com.pilaka")
 public class RestaurantListingApplication {
 
 	public static void main(String[] args) {

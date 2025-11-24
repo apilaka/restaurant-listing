@@ -6,9 +6,9 @@ spring:
   application:
     name: restaurant-service   # Unique service name registered in Eureka
   datasource:
-    url: jdbc:oracle:thin:@//192.168.12.228:1521/XE
-    username: c##ecommerceapp
-    password: ecommerceapp
+    url: jdbc:oracle:thin:@//192.168.12.111:1521/XE
+    username: C##awsuser
+    password: awsuser123
     driver-class-name: oracle.jdbc.OracleDriver
   jpa:
     hibernate:
