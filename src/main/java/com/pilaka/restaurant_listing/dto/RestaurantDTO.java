@@ -16,4 +16,5 @@ public class RestaurantDTO {
     private String city;
     private String restaurantDescription;
 
+
 }

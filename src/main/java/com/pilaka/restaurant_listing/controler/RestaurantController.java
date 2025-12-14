@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/restaurant")
+@RequestMapping("restaurant")
 @CrossOrigin
 public class RestaurantController {
 
@@ -40,9 +40,16 @@ public class RestaurantController {
       return new ResponseEntity<>(  restaurantService.addRestaurantDTOInDB(restaurantDTO), HttpStatus.OK);
     }
 
-    @GetMapping("fetchById/{id}")
+    @GetMapping("/fetchById/{id}")
     public ResponseEntity<RestaurantDTO> findRestaurantById(Long id){
         return restaurantService.fetchRestaurantById(id);
     }
+
+    @GetMapping("/findById/{id}")
+    public Restaurant findById(Long id){
+        return restaurantService.findById(id);
+    }
+
+
 
 }

@@ -7,8 +7,8 @@ import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2025-11-23T20:25:59-0500",
-    comments = "version: 1.6.3, compiler: javac, environment: Java 21.0.6 (OpenLogic)"
+    date = "2025-12-10T11:11:32-0500",
+    comments = "version: 1.6.3, compiler: javac, environment: Java 23.0.2 (Oracle Corporation)"
 )
 @Component
 public class RestaurantMapperImpl implements RestaurantMapper {
